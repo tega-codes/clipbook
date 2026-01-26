@@ -10,9 +10,45 @@
   <div class="container">
     <div class="header">
       <h1>ClipBoard</h1>
-      <button id="clearAll" class="clear-btn" title="Clear all clips">🗑️</button>
+      <div class="header-actions">
+        <button id="themeBtn" class="icon-btn" title="Change theme">🎨</button>
+        <button id="clearAll" class="icon-btn" title="Clear all clips">🗑️</button>
+      </div>
     </div>
     
+    <!-- Theme Selector Modal -->
+    <div id="themeModal" class="theme-modal">
+      <div class="theme-modal-content">
+        <h3>Choose Theme</h3>
+        <div class="theme-options">
+          <button class="theme-option" data-theme="purple">
+            <div class="theme-preview purple-theme"></div>
+            <span>Purple</span>
+          </button>
+          <button class="theme-option" data-theme="blue">
+            <div class="theme-preview blue-theme"></div>
+            <span>Blue</span>
+          </button>
+          <button class="theme-option" data-theme="green">
+            <div class="theme-preview green-theme"></div>
+            <span>Green</span>
+          </button>
+          <button class="theme-option" data-theme="red">
+            <div class="theme-preview red-theme"></div>
+            <span>Red</span>
+          </button>
+          <button class="theme-option" data-theme="orange">
+            <div class="theme-preview orange-theme"></div>
+            <span>Orange</span>
+          </button>
+          <button class="theme-option" data-theme="dark">
+            <div class="theme-preview dark-theme"></div>
+            <span>Dark</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div class="search-container">
       <input type="text" id="searchInput" placeholder="Search by domain or content..." class="search-input">
     </div>

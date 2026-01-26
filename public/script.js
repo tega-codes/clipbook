@@ -1,4 +1,5 @@
 let allClips = [];
+let currentTheme = 'purple';
 
 // Load clips from storage
 async function loadClips() {
@@ -9,6 +10,71 @@ async function loadClips() {
   } catch (error) {
     console.error('Error loading clips:', error);
   }
+}
+
+// Load theme from storage
+async function loadTheme() {
+  try {
+    const result = await chrome.storage.local.get(['theme']);
+    currentTheme = result.theme || 'purple';
+    applyTheme(currentTheme);
+  } catch (error) {
+    console.error('Error loading theme:', error);
+  }
+}
+
+// Apply theme
+function applyTheme(theme) {
+  document.body.setAttribute('data-theme', theme);
+  currentTheme = theme;
+  
+  // Update active state in theme options
+  document.querySelectorAll('.theme-option').forEach(option => {
+    if (option.dataset.theme === theme) {
+      option.classList.add('active');
+    } else {
+      option.classList.remove('active');
+    }
+  });
+}
+
+// Save theme to storage
+async function saveTheme(theme) {
+  try {
+    await chrome.storage.local.set({ theme: theme });
+    applyTheme(theme);
+  } catch (error) {
+    console.error('Error saving theme:', error);
+  }
+}
+
+// Setup theme selector
+function setupThemeSelector() {
+  const themeBtn = document.getElementById('themeBtn');
+  const themeModal = document.getElementById('themeModal');
+  const themeOptions = document.querySelectorAll('.theme-option');
+  
+  // Open theme modal
+  themeBtn.addEventListener('click', () => {
+    themeModal.classList.add('active');
+  });
+  
+  // Close modal on click outside
+  themeModal.addEventListener('click', (e) => {
+    if (e.target === themeModal) {
+      themeModal.classList.remove('active');
+    }
+  });
+  
+  // Theme option click
+  themeOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      const theme = option.dataset.theme;
+      saveTheme(theme);
+      themeModal.classList.remove('active');
+      showToast(`Theme changed to ${theme}`);
+    });
+  });
 }
 
 // Save clips to storage
@@ -213,7 +279,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
+  loadTheme();
   loadClips();
   setupSearch();
   setupClearAll();
+  setupThemeSelector();
 });
