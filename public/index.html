@@ -1,21 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-  <script  href="script.js" >
-
-  </script>
-    <title>clipbok</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClipBoard Manager</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div>
-        <form>
-            <input type="text" placeholder="Enter text" id="input-el">
-        
-        </form>
-        <button id="save-el" >Save clip</button>
+  <div class="container">
+    <div class="header">
+      <h1>ClipBoard</h1>
+      <button id="clearAll" class="clear-btn" title="Clear all clips">🗑️</button>
     </div>
+    
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search by domain or content..." class="search-input">
+    </div>
+
+    <div id="clipsList" class="clips-list">
+      <!-- Clips will be dynamically inserted here -->
+    </div>
+
+    <div id="emptyState" class="empty-state">
+      <p>No clips saved yet</p>
+      <p class="hint">Select text on any webpage to save</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
